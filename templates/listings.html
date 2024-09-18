@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>listings!</title>
+    
+
+    <style>
+        .container {
+        display: block;
+        height: 100%;
+        width: 100%;
+        padding:20vh;
+        }  
+
+        .slide {
+        display: inline-flex;
+        width:100%;
+        height:100%;
+        }
+
+       
+    </style>
+</head>
+<body> 
+    <div class="container">
+        <h1>Here are the items that look familiar...</h1>
+        <form action="http://127.0.0.1:5000/claim" method="post">
+        {% for key,entry,image in entries %}
+        <li >{{entry}} <img src={{image}} width=100 height=100></li>
+        <div id = "{{image}}" style="display: block;">
+            <p>Do you want to claim this item?</p>
+            <input type = "radio" class="confirmation" value="Yes" id="yes">
+            <input type="hidden" class={{key}}>
+            <label for="yes">Yes</label>
+            <input type = "radio" class="confirmation" value="No" id="no">
+            <label for="no">No</label>
+        </div>
+        {% endfor %}
+        <button onclick="displayRadioValue(entries)">submit</button>
+        </form>
+  </div>
+</body>
+<script>
+    function displayRadioValue(entries) {
+        keyy = 0;
+        var ele = document.getElementsByClassName('confirmation');
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].type = "radio") {
+                if (ele[i].checked){
+                    keyy = entries[i][0];
+                }
+        }
+        console.log(keyy);
+        var tt = document.createElement("input");
+        tt.style.display = "none";
+        tt.id = "keyyy";
+        tt.name = "keyyy";
+        tt.type = "text"
+        tt.class = "keyyy";
+        tt.textContent = keyy;
+        return tt;
+    }
+}
+</script>
+
+</html>
